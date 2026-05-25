@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woolshed Design Marathon Idea Capture Form</title>
+  <style>
+    :root {
+      --blue: #174A9C;
+      --blue-dark: #113B7E;
+      --turquoise: #2FB3A7;
+      --turquoise-dark: #238F86;
+      --light-blue: #EEF4FB;
+      --soft-grey: #F7F8FA;
+      --text: #243042;
+      --muted: #647084;
+      --border: #D7DEE8;
+      --white: #FFFFFF;
+      --danger: #B42318;
+      --warning-bg: #FFF8E8;
+      --shadow: 0 16px 40px rgba(23, 74, 156, 0.08);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--light-blue) 0%, #fff 320px, var(--soft-grey) 100%);
+      line-height: 1.5;
+    }
+
+    .page-shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    header.hero {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 26px 30px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      max-width: 290px;
+      height: auto;
+      display: block;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(1.55rem, 3.4vw, 2.55rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .title-block p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 720px;
+    }
+
+    .notice {
+      border-top: 1px solid var(--border);
+      background: #FAFCFF;
+      padding: 16px 30px;
+      font-size: 0.98rem;
+      color: #3d485a;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(247, 248, 250, 0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px;
+      margin: 0 0 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toolbar .left, .toolbar .right {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .status-pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--white);
+      color: var(--muted);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    form { margin: 0; }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 22px 26px 10px;
+    }
+
+    .section-number {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      background: var(--turquoise);
+      color: var(--white);
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    .card-header h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-header p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card-body {
+      padding: 12px 26px 28px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .field { grid-column: span 6; }
+    .field.full { grid-column: 1 / -1; }
+    .field.third { grid-column: span 4; }
+
+    label.field-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: #1e2c41;
+      font-size: 0.95rem;
+    }
+
+    .required::after {
+      content: " *";
+      color: var(--danger);
+    }
+
+    .hint {
+      display: block;
+      color: var(--muted);
+      font-size: 0.83rem;
+      margin-top: 6px;
+    }
+
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 13px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    textarea { min-height: 102px; resize: vertical; }
+    textarea.small { min-height: 76px; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--turquoise);
+      box-shadow: 0 0 0 4px rgba(47, 179, 167, 0.16);
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      background: #fff;
+    }
+
+    .checks.compact { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .check-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 7px 8px;
+      border-radius: 9px;
+      font-size: 0.92rem;
+      min-height: 36px;
+    }
+
+    .check-item:hover { background: var(--light-blue); }
+    .check-item input { margin-top: 3px; accent-color: var(--turquoise); }
+
+    .consent-box {
+      background: var(--warning-bg);
+      border: 1px solid #F1D99A;
+      border-radius: var(--radius-md);
+      padding: 14px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin: 2px 0 26px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-weight: 700;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    button:active { transform: translateY(1px); }
+    .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 22px rgba(23, 74, 156, 0.18); }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-secondary { background: #fff; color: var(--blue); border: 1px solid var(--blue); }
+    .btn-secondary:hover { background: var(--light-blue); }
+    .btn-export { background: var(--turquoise); color: #fff; box-shadow: 0 10px 22px rgba(47, 179, 167, 0.18); }
+    .btn-export:hover { background: var(--turquoise-dark); }
+    .btn-danger { background: #fff; color: var(--danger); border: 1px solid #F2B8B5; }
+    .btn-small { padding: 7px 10px; font-size: 0.85rem; }
+
+    .records-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .records-head {
+      padding: 22px 26px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .records-head h2 { margin: 0; color: var(--blue); font-size: 1.25rem; }
+    .records-head p { margin: 4px 0 0; color: var(--muted); }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 820px; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; font-size: 0.91rem; }
+    th { background: #FAFCFF; color: var(--blue); font-weight: 700; }
+    td.actions { white-space: nowrap; }
+    .empty { padding: 24px 26px; color: var(--muted); }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 50;
+      background: var(--blue);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+      max-width: calc(100% - 32px);
+      font-size: 0.95rem;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .error-summary {
+      display: none;
+      border: 1px solid #F2B8B5;
+      background: #FFF4F2;
+      color: var(--danger);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin: 0 0 18px;
+      font-weight: 700;
+    }
+
+    #printArea { display: none; }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 12px; padding: 22px; }
+      .logo-wrap img { max-width: 260px; }
+      .notice { padding: 15px 22px; }
+      .field, .field.third { grid-column: 1 / -1; }
+      .card-header { padding: 20px 20px 8px; }
+      .card-body { padding: 12px 20px 24px; gap: 16px; }
+      .checks, .checks.compact { grid-template-columns: 1fr; }
+      .toolbar { position: static; }
+      .toolbar, .toolbar .left, .toolbar .right, .form-actions { align-items: stretch; flex-direction: column; }
+      button, .status-pill { width: 100%; text-align: center; }
+      .records-head { padding: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .page-shell { width: min(100% - 20px, var(--max)); padding-top: 10px; }
+      .hero-inner { padding: 18px; }
+      .logo-wrap img { max-width: 230px; }
+      .title-block h1 { font-size: 1.45rem; }
+      .title-block p, .notice { font-size: 0.92rem; }
+      .card-header { gap: 10px; }
+      .section-number { width: 32px; height: 32px; }
+      input[type="text"], input[type="email"], select, textarea { padding: 11px; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      .page-shell { display: none; }
+      #printArea { display: block; }
+      .print-page { page-break-after: always; padding: 18mm 16mm; }
+      .print-header { display: flex; align-items: flex-start; gap: 18px; border-bottom: 2px solid #174A9C; padding-bottom: 12px; margin-bottom: 18px; }
+      .print-header img { width: 185px; height: auto; }
+      .print-header h1 { font-size: 20px; margin: 0; color: #174A9C; }
+      .print-header p { margin: 4px 0 0; color: #555; }
+      .print-title { color: #174A9C; font-size: 22px; margin: 0 0 12px; }
+      .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+      .print-field { border-bottom: 1px solid #ddd; padding: 5px 0; }
+      .print-field.full { grid-column: 1 / -1; }
+      .print-label { font-weight: bold; color: #174A9C; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
+      .print-value { margin-top: 2px; white-space: pre-wrap; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="logo-wrap">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAn4AAAFBCAYAAADpFKKFAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAn6gAwAEAAAAAQAAAUEAAAAAPlXtNAAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAChAAAAKAAAAKEAAACgAAArdmRqpR0AACtCSURBVHgB7J09Eiw7UoXHGpM1wQ6I8VkA6yAINjAeEXhjj8sKIMZnAXgM3vgYF84bzuOQL1NKVam7qruOIjqkkvL3k7qU0/fdO7/68ePHX/pjBj4DPgM+Az4DPgM+Az4D338GfvU/m+xmAiZgAiZgAiZgAibwAAIu/B6wyU7RBEzABEzABEzABEDAhZ/PgQmYgAmYgAmYgAk8hIALv4dstNM0ARMwARMwARMwARd+PgMmYAImYAImYAIm8BACLvwestFO0wRMwARMwARMwARc+PkMmIAJmIAJmIAJmMBDCLjwe8hGO00TMAETMAETMAETcOHnM2ACJmACJmACJmACDyHgwu8hG+00TcAETMAETMAETMCFn8+ACZiACZiACZiACTyEgAu/h2y00zQBEzABEzABEzABF34+AyZgAiZgAiZgAibwEAIu/B6y0U7TBEzABEzABEzABFz4+QyYgAmYgAmYgAmYwEMIuPB7yEY7TRMwARMwARMwARNw4eczYAImYAImYAImYAIPIeDC7yEb7TRNwARMwARMwARMwIWfz4AJmIAJmIAJmIAJPISAC7+HbLTTNAETMAETMAETMAEXfj4DJmACJmACJmACJvAQAi78HrLRTtMETMAETMAETMAEXPj5DJiACZiACZiACZjAQwi48HvIRjtNEzABEzABEzABE3Dh5zNgAiZgAiZgAiZgAg8h4MLvIRvtNE3ABEzABEzABEzAhZ/PgAmYgAmYgAmYgAk8hIALv4dstNM0ARMwARMwARMwARd+PgMmYAImYAImYAIm8BACLvwestFO0wRMwARMwARMwARc+PkMmIAJmIAJmIAJmMBDCLjwe8hGO00TMAETMAETMAETcOHnM2ACJrCdwL/84T9++HM9g+0ba4MmYAIfT8CF38dvoRMwgfsR+M3f/v7HX/zVb/25mMH9ToYjMgETuJqAC7+rd8D+TeALCbjwu0fR+4VHyymZgAmcJODC7yRAq5uACfySgAs/F36/PBWeMQETuAMBF3532AXHYAJfRsCFnwu/LzvSTscEvoaAC7+v2UonYgL3IeDCz4XffU6jIzEBE1ACLvyUhscmYAJbCLjwc+G35SDZiAmYwHYCLvy2I7VBEzABF34u/PwtMAETuCcBF3733BdHZQIfTeAbCr9vyOGjD5GDNwETeAkBF34vwWqjJvBsAp9eNP3d3//Dj3/957/5+H+H8Nmn0NmbgAlkBFz4ZVQ8ZwImcIrApxZ+iBsfFH3/9Z+//mnMuU/8B6lPbaKVTcAEvpKAC7+v3FYnZQLXErhr4Ydf8kYFHAs+FH38YG6UD2yO1kf+Xr32ilPwj7/7tx/4sCBGj+d//+OfXuFuaBM+NRaM8X8VeKeGeBAXP6+KjSzop7MflEV/N26v4mS7P3648PMpMAET2E7gjoUQYkIxNyu2UMhp0TeTR2E4KyhnNl61vnNjURj8+q//afhBAfGuhsImi+edMXRyRTyME2fwVS3uT6eQY1zo78btVZxs14Wfz4AJmMALCNyp8EMs+LCg4y90VYz81Y99VpTRJnoUifxVsLKZ2XjH3K6t1eJFi4Vs/K4CAqwz/51funZx6dhRdoj5Vc2F36vIfp9d/+L3fXvqjEzgcgJ3KoBY8PFXPPZVjCjiWJSxSOSz9iwMaQ895FXm6vGOg5D9sgZ2KGi0qNEirPNr09nY1N8rC6qzcSqjV8bpwu/sTj1H34Xfc/bamZrA2whURdVVhRDi0QJtVxxa/N2t6EOOOxrYaZGFQia2KIPnqqGQRJFytjicxVT5X51nvN1fEmNu3cKPel0/MS7oK5MOX5XnvtJuR3+VpeXvQeAWhR8O2uhzD1SOwgRMoEsAF/+u4mqHHf7qx0JtV5GGYhI2+dkR604b3f0ayWlxMCroIId1FBBZ0aAFULSJ93+3wYfq65jxqQwLGtqPBRLn0astxKR2uBbtUT/LD/o6z/iogz7zAV8ZQ8jH+DUujkf6sMGm8ogzi0Xz1VwqH2ojy5e+3V9H4PLCD4cYh2n0WXkpXIfSnk3ABEgAL/ydBcxZWyj0GBP6HYVftLPD5tk8oz7342gfiwwtAlZsxoJBCw6Ou7bBnTqxxxqaykS7MSfNQ+2pDZ3HONocyaou44PPqrBU+egnxq6ycQzZWYs61bPGoTKaD3PSddWbxeL19xFw4beZNb5so4+L2M3Abe6WBHAhxCLEz+//v3E7ezhwcetF3ikmos9oA/aqQqnzfoS9TB9zLDR0nXOMCzloTpxHr/McZ/5gny3aY34aA22pHuxynjpxDvPKROU5znSw1tkr2tAeMWaxM464Rg7oYyy65vF9CLjw27wXOPijT+fLuDkkmzOBtxPA5XBFoXfHX92ujOnsxseL/Mj7KxYVLCAQW7SPc9Ntahd2tGlxEtdioaZ6ahNjbWpT49R56Gh+GKtN1avm4VPXGH+Mm/OMMcbR2Sv1g7HGXvmLOakfjUFzZYzu70HAhd/mfcCXcfTRL8lm1zZnArchgJf+FYUf/pu7q3xX+V4Z09kDgXeZFger769YPGT6WizAFxqKC8xnHxYnGteoCIprMSZlNLIZWVBP48c4tmw9xgDbmOMn06n8019ch61ZG+UL3SwOzKsecx4VhNBxuw8BF36b9wJfvtGHL63Nbm3OBG5FAJdBVQjtnscvavjwL26g59xuX1179H91TGcPxUoxkb3bYoGTyUQfiDnqaaHBgkbnYEObFixxLdpWPbVJP1zP4sSa6kRfWFc9FkkxBrURx9RRO5CJLdqM8Ud5PKuvLHblyDigl8WSzUHW7X4EXPht3hMc/tGn82XcHJLNmcDbCeCS6BZJZ+XgiwUW/8kWPL8zhiyHGNMVv/yd3fhYTODdVjXwRiGBnu+5qO/C78+/CEYuWoBlYzCfFVbRJveg2i/Mq69sb7mn3Ffawj6qLnypbGaLuu6vJ+DCb/Me4MCPPp0v4+aQbM4E3k4Al0BWDL1yjkXfFQVWlZfGhF8BK7lXze/YeL3gMc5aLDqw/2hxPnv/acFA+ygsMJ99WDxqXLHQUJtxDc+qq/nofIy10lNfGMeWrUcuMcZoA8/RPzlQNq7H+CmnvebbjZ36MS+11fFNO+7fT8CF32bm+PKNPvHLutm9zZnALQjgUnhVMZPZRVGFIkv7TO6dc2DAmPDrHz7v9A9fO1osKJCXvsfiOgoAvfi1IICurkVdPHeb2o168MN1jLXpGmS0UQe9xgmZGCv14rzGAhtqU2Op5mGXa5CnvZEt7EfMK8bPeLWnH/b0BZnoT9eyddrQHNWXx/ch8JjCD18MHGR+cIjx4bO+yFa3B7r80G7Vwx9lY7/qV+WZB3r61jn4OttivPE5s88YGFMWR7STPUfbkIm2o0znWe28kl0Wy8w31rOG+dEn03n3HF7+7yxy4E99XvHrWswXMVwd0459x1lDHrzY2WdzWMO8Nnz3qcO+0q3OvNrjmLbQw4e2aB/PkInz0NWmNvE+0Bbz4BrkVA9j+Ml8YY4tW89i1NyiH/rK5mP89Kt9plfFnu1Npq/xqi+P70Pg6ws/HFYcxO4nO9yj7dJioeujklv1DflV/5Bf9YP8O36UUyWf+a5kyQnr2ip5lZmNKxv0mfUxjpmPah0MMvvVXPRbyXE+yldxvHIel0cshPz8ef+OH88IzmxWqMSLHzLZdxxnM8rG59Vzq/qwrw0x6LqOYx6qp3IxnpiD6sU1taP+MNama6rDcZRfySvGr345ph/0o1giX+pneWf7T3n39yDwtYUfDh8O5ZEPvjDdwwvZIz4yna5PHJ2zfjsvBT2iHX+UH8lmOY7kwUljzbhxjv5H/ZlzQT9ZDiOfXIPeLFf6yHr6zdZ0TnnR97t7XCIu9N5f6EXmO/ed3x0tFnSMM8gzmvnFuVR5jnFWRnqZLcxRHz18x4Y5laEcfOm86ul8/B5Fe6qHcVynP807K+Sqggv2Mi4xfvih3VH8MV48R/kqh0wXc5qbxlHJe/4eBL6y8MNhxAE++4lf/GzLdvmqvuTRJ770Z/Oific/+u/kCdmZXPYim+kwzpkcY636mT65dPosj8ov5nftW8fOamyjuI+u4SKKRYif318IHt2/mR7OGL5P+KyeN9Wd+dmxDn+rMZ7xe4QJ/JEn+k4jx47sqkzXNt6VWjzi2e3+BL6u8MOXpnNxd2VmX8Kd/mYvJ6x34+7KzfLjEe7k2Ykvy3FmG+szGeQ7ah39LjPKZblkMXS40OaOHrle3d5Z+L3T19ni9d2xXn0O7P/7CPC9h3cVzrMWft+X7Xdm9FWF36suWB707AjsLChGfuB7R1GQ2egUCp08OzJZjjO92TpzyvYHc686F/Cb5RPjYHzv6sHr6vbOAucO/2ZftyB899/svfoc2P/3EYjFHgs/vN/cPoPA1xR+r7zcRwe6W5R0Lv1REbHTTxbLyDeO8i7/mZ9dtrOv3KvPBWIftV25ZXtWzWWMRzG+Yu2dhR//yZRu8XWVHJgg1neyecXe2uazCeC9w2KPPc70Hd47z96ZfvZfU/itXLCQ5ae6POM85LO24jfajM/VF6dbvCCWaGNFN8uPc7vyjPHB/i7bjFX7rm3EpbFhvKKrPnUc93j0DH+Mg303BrULnavbq4sb/FMp/LfxUEzhw+erCrvKL2NlnIz1Hf/kzNXnwP6/jwDeL/h+84N3j9tnEfiKwg+XpF581bi6ELv6kJu1yjfnqxhGdqk76mexwe9IH2sjGx39mf3Kxy7bkWFnX2f7ccZGRxdMEMOIPfJaYTTLKXJ6xfOrCz8UWSicYjFVFV9Xz8dY31H0IWc3EzABE4gEvqLw61yKs4u1c0l3LtRZ8TOLI24QfPJ/WVU9fM4a/M4uv5EdrM30s3XozbhVeVXzsIkPchrx3HEuwBU+6LPqM/4d/zM2ardjj1xU74ox9i47D7vntPB7VzF1JAfw0FjfxeeKvbdPEzCBexP4isKvuow5371cOxfrbDvpk30sXjC/0mYXBNa7Db5Hl9bI1kw32oX8qCjTmGc5ZrZVvxrDbvVBfN1zAfuQH32yXEfyXKtir+Y7Z3Qlr8rP2fnVPY173HlGoce/2MFxR+8KGcYHLoj5XUXq2X20vgmYwPcR+PjCr/NrTHYpV1vJCznr8dKe2ZpdKrC70mYX6Io9xD6Lr8oPfma6XF+JCSxmOdIu+iq+yBTFj+pl464t2J4VXLHYgm1wGH2iTswhe36V3czXmbmVPc32pjMXfcTnjo13ycTY4vOr4jizh9Y1ARP4TgKPKPxWtg4v5NFLeVbUzF7gM/0Y68zeavEwyg2+KnuIexYL1mF/tc1iot8VdrN4V+MEF8ahPezwo3l3CrSVwlNtI7fR56hd9XF23N1TZenxb9MzdobL2X20vgmYwPcR+PjCDxfy6BLE2kqbXVgze7OX9ExfY62KjZmPM+tVfJjv2D1SdMyYwy9kVlrHZiefFRmNT/cOsegHLPE5wgo+Zmce61e3K/iv7NVTZN9xDnCOcebwOXqmz8ZJ/93+rD/r7yHQPTu6rzvOWNfvnizvZ+XjCz9eonqx6ksd8yttdmHN7KnvbIx4uw2HPbPxyrkqPszP/M7YVHnPmMNvFdcZm7N8Vtf1hdTZO8gcaWAx+hy1eySWSqezp6t8Lb/+i2C1P0fmcb6xr/F8YY7/ntvq9/RIHJkO/Xf7mENm03OvJ6BnB+Oq6b7uOGOwQZsjv1U8nz7/8YUfNm10Iaxu6ll7o1iwtnJo8XKa2du9XsWH+ZmvSnf2JZkxh9/VF3XH5iyf1XWNsbN3R3lBb/TRAnTG/lXrV/DHfl3ld3RWroxp1/7ivPGi1HMO+8iPa0fP9Nk46b/bxxzO+rf+MQJ6djCumu7rjjOm53nkt4rn0+dvWfhhI/jBC3X0JYXc7KW7skln7Y1iwdrKoe0UDzN/q+tVfJif2Rrt02gPZszhd7V1bM7yWV3X/Dt7hxhXG/cBuvxgTj8ax6r9XfJX8Md+4Z9MWd23V8vzbx6/2k9mf9d+6sUbzxf2mus4h1c0+mfP70bV3+F/HF3B6W4+9exgXDXuK/odZww2eDZ22Kvivuv85YUfNyB7aXEuvmgUJjaPclk/Okxqh+Oz9rIYdG7lkHWKB7W9Y1zFh/mZ/aMv07PMuXfad+Kd5bO6rv4x7uiPzna0xz9qG9kFy2oPo71XPs/2dJTD0TX4ROH3rn8qpRPn1THt2mO9eOOZRY5c17O3+j6A3VUd5kf/uwoD2l3tZ/FjPfJb8TGzr7ZWeTK2FR/0d0QHunp2MK7akf09w1njIBedWxkfZbPiY1X2FoXf7AU62kAclpH+6DBlsM7aG8WCNX0xZv7jXMce+Oz6VIe0U0jF2LvPZ5lnfjrx7mJGOzGOWV7c24q52oNM197qGVM/u8bdWMngTI9CT/9xZI6vLACrmPDr35lcV3XP7ifOkl66Osa5R8Necx7ymU51JmFD9dVO53vB/KiHvvJF2dirLnOijOaCONnivD7Dntrhd1f9YAx7KkfbygN28dE56GIua5UvyGc8K3nGF31oHIgddmNeVWzRFp7VHsZVUx9qX/1DP8snsxv1ot/MDplke6b2MIaMxkzd6OeqZxd+gTwOyejlmh0iNTHSxRoOxUo7G8+Kr5Es4p7lNtIfrb0iR3zxZvFmL8JRnKtrHWaMcXQukMuMEe2gH9lazeGo/Eq8GvvRMfyx4LvLr353iOno/lEPZyleYHzmBYg8OTfq47kc2YYd2O1+R9Vv9MNcql51mRNlNUbEw6bzqs8x44Y9zlV9jPcoz5mvyBMxVjFxPupobDqmPPuYE7nFXm1gXDXaRa+2Z/ugempb9TK/Gpfa4DjqRHuUi33U05jeOXbhF2hjY0aXz2zjRrpY00MbXKePs3hgky+Z1EAxuaqDuGe5Fa6m07McZ8wrB7N4j9hd5TaLQdcRDz5gzQ+eVaYzXj1jFb8z80fi7uRWycDf3Qo/xHp1TGf2ELo4S2CrFxie8eF3Ia5DljKqh7G2uJbpdM9ytDV6jjZVdkfhhzzQwEdtj8ZkCb2MZ6XLeDNfGU/GlvnBWrbf9JHpIK7MD+Y7DbrMTWOLupRBr/uHsa5hzDzivOaheuoXHDWmaEOfK3uUqeLQvY55vuvZhV8gjc2qLhfM6yEJqj89jnQ7+tEmDtdum8xx5QDiizKLI8befWY8lf0Z88rPzC786UukssN57AVsrsTT4VblfXR+JSfmtrvvsD+aX6aHP1rlH+2if/cfqd41pl37yssMvV54sI+9rtZxFnWN75w4rzbjWicH9TEbx++Hymsc8Kux6Pde56GPNeTGD3QjF/Wb6UMHbaSH+DRexhTtaR5x7c9e/q+ohw2NDTmoD12LsXX80F/Wqz3mkslV8cTc1MYoD9VTHY0HPjX3yB7rbGpvpqfMqP/u3oVfII6Nz17inNNDElR/eqTcqNfDhMOJZ9itDsQsJviCDGyNGuxHW5XPaAcxjnLC2tEWY4p+sH6kIbdoK3vW/aj8xPw7vGlrll8W05m5Tj6M7VX9u3M+w+ubdXftr1688Z2BveY6xtogyzX01FUdzGuLOrP3GnTVx2wcvx8qz/gYD2S5rrnpPNajXowp+sR6tEGfykZ9jtZVB/FoiwVQFivkIYe1aEtj17UYG3TJCn1n30b2NAe1q/FUDKnb0dM8VF7naS/6Y45xnvLs1a7Gz/V39y78AnFs9ugiyA6DmhjpztaqLyTmZ7pcR3yQ1w8O2iivzkGEDH1UvXJYGY9ig68Z85GvmW3mAjnkqNwwHuUNHX7xRzFAhn7O9vA5y6mzn6N4d6zNYjzL4ag+fxU8qp/pvcJm5ufI3I69hA29uPC90Ia95jrG2iDLNfTUVR1dz8bUUbtxrHqr5191oy/Y4rrmpvNYj63KW+WiDN8lyibLJfOtOoy36tUmfM50VV5ldR55xXwiS82dY7WHcdU0F/WLsa5FfbVf6alftaXytFvlqHGoPerN7FLuXb0Lv0AamzZ6wWabqiZm+iPboy/KGbsjn1zLDrnmhXXKVr3Kr4xnuc2Yj3ztLLqqvPnCnsUxy7Oyz3no80XNuayf7eUozl1rZ3PN8toxh//mbocdtYE/Vr5r8bdrP/Xiiu8p7DXX49mrLkrVoW7VR39ZTqobY8jkdU51oy/Y4jpiZtN5rMdW5a1ylYyyyXLJfKsO46162oz+KR9tUR6x65rOYy3aw/Osqb2MI/TxzmNs6NUvxroW/an9Sg8ybGpL5ble5ahxqD3qzexS7l29C79AGpumL/U4zjZVTcz0oz19nn1RzthWP9l4lhcOdqanc8phZTzLaxbbzFcnds1jdZy9ILKY8AI7GgsYsMCcxdeNJ4tx19xsT2c57FxHLPigOOPf+OXcUT/URw+b/Eea8XzU5iv0du2nXlzxPYWcuR7PXnVRqg7GZxv9o48xzGyr7ig3jRM+VC/zoetZTJWNGZtsXefgt9NUB2PNvYpddWJO1V6PYokM+I5TnSijccY11cO4ilf1IMOmees812OOjLeyRz21C9mrmwu/sAPY7NELODsMagIHY6Q/WtMDrTY5xiGbxTeyX63B5sw3Dmulz3nGudrPcpox7/jrxM88VvojsYH1LGfGADndG5wBrlX9HV4s3fyqHHbOs+DTv2HLArDyg/hHv+JhHcVetHmHv1SiOXW+Gx0Zvbj0PEIXLLgezx5kuYaeupDTeV6gsIc12MQHY13DetbUVowhk9e5ka6uIR62GD/ntVcusKN5YFzZjnpkBtuVXoxHfUEfNvEhz2hHmY3WNDbVQWzVXmOtajFu2NfYMVafkWPUj35UV+NVPciwqTx8RfZxnXqVPa7rXmscXH9378IvEMfG6oszjvWQBNWfH2c2ok0+6yH72VgY8ItAnbM9YtUvWnD38yMO68zXz8KLgxmvDvOOS/Cd5bCyfvYLDO6ICXaQIz94xic7D5ifxZjpdfjslJnt6SyH3euIR4u0WXwo+jpFnBZ/o0Jxdz5de7v2VC8unlOeMzxzHedTG2S4hp46cR5rPPcqj3GnRZ3Zs8YZZas4kCcbZFSP89pnOZKd6mJMLtBXnpSb6eFdQln2VR6MkXLoYR8xQCf6xxybruk81mO+mhP1s17jmI3hXxtiUB1dw7iKV/XUZsYR62qH/jT/yh7joQ561eP6u3sXfoE4Nnj0UtVDElR/fsThmdnJfHS/KHCEw5PZWJlbOYAdfz8DWBzMWHWYd10e3RvlinhW9qobW0duxgpxIserWydOZfrqMX/1Y6GWxYc5yLHo46+CnMtihAxtdgrFzMYr53adA724OOb7A9ziHP2OigHoU6/qu9+zSr+aZ+yIcxSH5oYxW9ThfOyjXBaPxgJ99ZnJc07jgd6qr448fKkfjS3GPdprxFe1qMf8sj6+22IO0UcVr+ppftCHj8y3zkWdkT3YVN3IDevvbi78AnFs6OhFHDc8qP/8iMODDR7Z4hpsdl9wPzv43wF8zGKmH/SQhU78AkW78bmTS9TpPs/ix/ruBt4zv8pN2R2Jhedhlbv66uzBK1hpDN3xKtvIevczijLGNCrksKa/DLKwy+KBPcjzbHxz4Yezp5cXxphDAweucY7nJF7q8T2X2aWtKEubWU+dbh/jzOLAnMaPPNmiPOezPspqjFmOkWemj7msZbL0N/NFOdiIdugrxsZ59MoKtjJ/Kq9jvBfVNmNhr+xVr4qTMmoTsmyql9lGPPQde7XTtac2Mn3aeVd/eeH3rkSv9IMvADY7fjB/phDQnGCH9nGQ9cP5lS+i2v72se6PcsMY7HbsE+yweMB4dd9Vn3ayHnJ3aGCXxfcJc1r83bGYW2G4+yzgu7Dj+xDjot1X2I6+Rs+MYyRzdA3fedofff/x3WGhwO9zV5ex0Q97zmc9ZdBf3TRPxjVi9ep4Yzyv9vcu+y783kXafh5LAC+P7LKeFZZ48eHFv1JEXfmS1A1eiTljc+Ucij1+8IvflbGc9a174vFnEMgKv8+I3FF+CgEXfp+yU47zYwl0f607e8njwrhL++TCj398i/3A+JNzuct5cBx9Ai78+qwseYyAC79j3KxlAm0C7yoc7vJrH8C8K+ezxfK367cPqQVvQ8CF32224msDceH3tVvrxO5A4F2/9t3hv89R3i78fnuLPyLWPfH4MwjgncHP3b7Xn0HQUc4IuPCbEfK6CZwg8I4CCJfE3do78v72X+t25He3c+F4TMAErifgwu/6PXAEX0wAf/z6ql/9UFzd6Y93dRtd+PkXPz0PHpuACdyHgAu/++yFI/lyAvhjmx0FEWzc/Y+AduS54xevp9v48q+U0zMBEzhAwIXfAWhWMYGzBFC48b/jQZGkHxQr+owxZO9e7CkTxPz0ousO+eueeGwCJmACIODCz+fABExgOwEXfv6j3u2HygZNwAS2EHDhtwWjjZiACSgB/EIZf7X08///ZfcdPHRPPDYBEzABEHDh53NgAiZgAiZgAiZgAg8h4MLvIRvtNE3ABEzABEzABEzAhZ/PgAmYgAmYgAmYgAk8hIALv4dstNM0ARMwARMwARMwARd+PgMmYAImYAImYAIm8BACLvwestFO0wRMwARMwARMwARc+PkMmIAJmIAJmIAJmMBDCLjwe8hGO00TMAETMAETMAETcOHnM2ACJmACJmACJmACDyHgwu8hG+00TcAETMAETMAETMCFn8+ACZiACZiACZiACTyEgAu/h2y00zQBEzABEzABEzABF34+AyZgAiZgAiZgAibwEAIu/B6y0U7TBEzABEzABEzABFz4+QyYgAmYgAmYgAmYwEMIuPB7yEY7TRMwARMwARMwARNw4eczYAImYAImYAImYAIPIeDC7yEb7TRNwARMwARMwARMwIWfz4AJmIAJmIAJmIAJPISAC7+HbLTTNAETMAETMAETMAEXfj4DJmACJmACJmACJvAQAi78HrLRTtMETMAETMAETMAEXPj5DJiACZiACZiACZjAQwi48HvIRjtNEzABEzABEzABE3Dh5zNgAiZgAiZgAiZgAg8h4MLvIRvtNE3ABEzABEzABEzAhZ/PgAmYgAmYgAmYgAk8hIALv4dstNM0ARMwARMwARMwARd+PgMmYAImYAImYAIm8BACLvwestFO0wRMwARMwARMwARc+PkMmIAJmIAJmIAJmMBDCLjwu8lG//sf//TjN3/7+x9/8Ve//emD8T/+7t9uEp3DMAETMAETMAET+AYCjy78UGz9yx/+4xcfzL+7adHH4g+9i79374T9mYAJmIAJmMD3Enh04YeiSossjt9dbKHQpO/YoyB0+yUBLdivKNR/GZFnTMAETMAETOD+BD6q8MMFj0Io+xwp1u5S+FVxsAh8emGD/MGo+lWUnHguIPt0Zvd/9ThCEzABEzCBKwh8VOE3K5BWAVb2MP/uxuIl9ihmntyqPYqcsmewwy+DbiZgAiZgAiZgAn8m8FGF3+wXn9WCrSoqVu3sOExVLE8tXPjrblbQrc75178dJ9Q2TMAETMAEvoHAxxR+VWGkRcDqr2OVzSsKPxwm+EUO/Ljo+/PfcNY9Xh2vnolv+FI7BxMwARMwAROoCHxM4YcLvHPprxRLdyv8qk162ny1L539jzIr5+FpnJ2vCZiACZjA8wh8ROGHyzte6NXzyi88VYGBebfrCFR7i3nsbyzm8Ee5mMO+6f9A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" alt="Interreg Alpine Space and Woolshed logo" />
+        </div>
+        <div class="title-block">
+          <h1>Woolshed Design Marathon Idea Capture Form</h1>
+          <p>Action 2.2 documentation tool for ideas, concepts, material samples and prototypes generated during the Design Marathons.</p>
+        </div>
+      </div>
+      <div class="notice">
+        This form captures what directly emerged from the Design Marathon: the idea, the wool material or process explored, the intended use context, and the immediate continuation needs identified by the team. It does not replace later technical, market or business validation activities.
+      </div>
+    </header>
+
+    <div class="toolbar" aria-label="Form tools">
+      <div class="left">
+        <span class="status-pill"><strong id="recordCount">0</strong> ideas in collection</span>
+        <span class="status-pill">Data are stored locally in this browser</span>
+      </div>
+      <div class="right">
+        <button type="button" class="btn-export" id="downloadCsvBtn">Download CSV</button>
+        <button type="button" class="btn-export" id="printPdfBtn">Print / Save PDF</button>
+        <button type="button" class="btn-danger" id="clearAllBtn">Clear collection</button>
+      </div>
+    </div>
+
+    <div class="error-summary" id="errorSummary"></div>
+
+    <form id="ideaForm" autocomplete="on">
+      <input type="hidden" id="editingIndex" value="" />
+
+      <section class="card">
+        <div class="card-header">
+          <div class="section-number">1</div>
+          <div>
+            <h2>Idea identification and territorial relevance</h2>
+            <p>Identify the idea itself and the countries where it could initially be developed.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label class="field-label required" for="idea_title">Idea title</label>
+            <input id="idea_title" name="idea_title" type="text" data-required="true" placeholder="Short working title" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="idea_tagline">Short idea tagline</label>
+            <input id="idea_tagline" name="idea_tagline" type="text" maxlength="150" placeholder="Maximum 150 characters" />
+          </div>
+          <div class="field">
+            <label class="field-label required" for="authors_team">Idea authors / team</label>
+            <input id="authors_team" name="authors_team" type="text" data-required="true" placeholder="Names or team name" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="contact_person">Contact person</label>
+            <input id="contact_person" name="contact_person" type="text" placeholder="Name, email, organisation" />
+          </div>
+          <div class="field full">
+            <label class="field-label">Type of contributors</label>
+            <div class="checks compact" data-name="contributor_types">
+              <label class="check-item"><input type="checkbox" value="Designer">Designer</label>
+              <label class="check-item"><input type="checkbox" value="Maker">Maker</label>
+              <label class="check-item"><input type="checkbox" value="Artist">Artist</label>
+              <label class="check-item"><input type="checkbox" value="Student">Student</label>
+              <label class="check-item"><input type="checkbox" value="Researcher">Researcher</label>
+              <label class="check-item"><input type="checkbox" value="Wool producer">Wool producer</label>
+              <label class="check-item"><input type="checkbox" value="Wool processor">Wool processor</label>
+              <label class="check-item"><input type="checkbox" value="Craftsperson">Craftsperson</label>
+              <label class="check-item"><input type="checkbox" value="SME/start-up">SME/start-up</label>
+              <label class="check-item"><input type="checkbox" value="Public or territorial actor">Public or territorial actor</label>
+              <label class="check-item"><input type="checkbox" value="Educator/trainer">Educator/trainer</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="field-label required">Countries where the idea could initially be developed</label>
+            <div class="checks compact" data-name="initial_development_countries" data-required-group="true">
+              <label class="check-item"><input type="checkbox" value="Italy">Italy</label>
+              <label class="check-item"><input type="checkbox" value="Slovenia">Slovenia</label>
+              <label class="check-item"><input type="checkbox" value="France">France</label>
+              <label class="check-item"><input type="checkbox" value="Austria">Austria</label>
+              <label class="check-item"><input type="checkbox" value="Switzerland">Switzerland</label>
+              <label class="check-item"><input type="checkbox" value="Germany">Germany</label>
+              <label class="check-item"><input type="checkbox" value="Liechtenstein">Liechtenstein</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field third">
+            <label class="field-label" for="linked_local_context">Is the idea linked to one specific local wool context?</label>
+            <select id="linked_local_context" name="linked_local_context">
+              <option value="">Select</option>
+              <option>Yes</option><option>No</option><option>Not yet clear</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column: span 8;">
+            <label class="field-label" for="territorial_connection">If yes, briefly describe the territorial connection</label>
+            <input id="territorial_connection" name="territorial_connection" type="text" placeholder="Local breed, wool availability, processing actor, craft tradition, territorial need…" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="challenge_addressed">Design Marathon challenge addressed</label>
+            <select id="challenge_addressed" name="challenge_addressed">
+              <option value="">Select</option>
+              <option>Valorisation of coarse wool</option>
+              <option>New uses for local wool</option>
+              <option>Low-tech or accessible processing</option>
+              <option>Territorial circular economy</option>
+              <option>Craft and digital fabrication</option>
+              <option>Education and awareness</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="challenge_other">Challenge notes / other</label>
+            <input id="challenge_other" name="challenge_other" type="text" />
+          </div>
+          <div class="field full">
+            <label class="field-label required" for="idea_summary">One-sentence idea summary</label>
+            <textarea id="idea_summary" name="idea_summary" class="small" data-required="true" maxlength="300" placeholder="Maximum 300 characters"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="section-number">2</div>
+          <div>
+            <h2>Nature of the idea</h2>
+            <p>Categorise the idea without assessing its market or business potential.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field third">
+            <label class="field-label required" for="main_category">Main idea category</label>
+            <select id="main_category" name="main_category" data-required="true">
+              <option value="">Select</option>
+              <option>Material experiment</option><option>Product concept</option><option>Product prototype</option><option>Textile application</option><option>Architectural/interior application</option><option>Packaging application</option><option>Agricultural/landscape application</option><option>Artistic/cultural application</option><option>Service/system concept</option><option>Educational/toolkit concept</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field third">
+            <label class="field-label" for="secondary_category">Secondary category</label>
+            <select id="secondary_category" name="secondary_category">
+              <option value="">Select</option>
+              <option>Material experiment</option><option>Product concept</option><option>Product prototype</option><option>Textile application</option><option>Architectural/interior application</option><option>Packaging application</option><option>Agricultural/landscape application</option><option>Artistic/cultural application</option><option>Service/system concept</option><option>Educational/toolkit concept</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field third">
+            <label class="field-label" for="field_of_use">Main field of possible use</label>
+            <select id="field_of_use" name="field_of_use">
+              <option value="">Select</option>
+              <option>Fashion/textile</option><option>Interior design</option><option>Construction/building</option><option>Packaging</option><option>Agriculture/gardening</option><option>Acoustic/thermal insulation</option><option>Craft/design object</option><option>Cultural/educational use</option><option>Circular economy service</option><option>Training/education</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field third">
+            <label class="field-label required" for="current_form">Current form of the idea</label>
+            <select id="current_form" name="current_form" data-required="true">
+              <option value="">Select</option>
+              <option>Initial intuition</option><option>Concept sketch</option><option>Material sample</option><option>Visual mock-up</option><option>Rough prototype</option><option>Functional prototype</option><option>Tested during the marathon</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label class="field-label required" for="short_description">Short description</label>
+            <textarea id="short_description" name="short_description" data-required="true" placeholder="What is it, what does it do, and why does wool matter?"></textarea>
+          </div>
+          <div class="field full">
+            <label class="field-label">Key design approach</label>
+            <div class="checks compact" data-name="design_approach">
+              <label class="check-item"><input type="checkbox" value="Reuse">Reuse</label>
+              <label class="check-item"><input type="checkbox" value="Transformation">Transformation</label>
+              <label class="check-item"><input type="checkbox" value="Local identity">Local identity</label>
+              <label class="check-item"><input type="checkbox" value="Technical performance">Technical performance</label>
+              <label class="check-item"><input type="checkbox" value="Low-tech production">Low-tech production</label>
+              <label class="check-item"><input type="checkbox" value="Digital fabrication">Digital fabrication</label>
+              <label class="check-item"><input type="checkbox" value="Craft innovation">Craft innovation</label>
+              <label class="check-item"><input type="checkbox" value="Modularity">Modularity</label>
+              <label class="check-item"><input type="checkbox" value="Repairability">Repairability</label>
+              <label class="check-item"><input type="checkbox" value="Aesthetic exploration">Aesthetic exploration</label>
+              <label class="check-item"><input type="checkbox" value="Educational use">Educational use</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="section-number">3</div>
+          <div>
+            <h2>Wool material and process explored</h2>
+            <p>Document the material relation and the making process explored during the marathon.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field full">
+            <label class="field-label required">Wool form used or imagined</label>
+            <div class="checks compact" data-name="wool_form" data-required-group="true">
+              <label class="check-item"><input type="checkbox" value="Raw wool">Raw wool</label>
+              <label class="check-item"><input type="checkbox" value="Washed wool">Washed wool</label>
+              <label class="check-item"><input type="checkbox" value="Carded wool">Carded wool</label>
+              <label class="check-item"><input type="checkbox" value="Felt">Felt</label>
+              <label class="check-item"><input type="checkbox" value="Yarn">Yarn</label>
+              <label class="check-item"><input type="checkbox" value="Fabric">Fabric</label>
+              <label class="check-item"><input type="checkbox" value="Wool waste/residuals">Wool waste/residuals</label>
+              <label class="check-item"><input type="checkbox" value="Mixed fibres">Mixed fibres</label>
+              <label class="check-item"><input type="checkbox" value="Not yet defined">Not yet defined</label>
+            </div>
+          </div>
+          <div class="field third">
+            <label class="field-label" for="wool_origin_known">Wool origin known?</label>
+            <select id="wool_origin_known" name="wool_origin_known"><option value="">Select</option><option>Yes</option><option>No</option><option>Partly</option></select>
+          </div>
+          <div class="field" style="grid-column: span 8;">
+            <label class="field-label" for="wool_quality_notes">Wool type / quality notes</label>
+            <input id="wool_quality_notes" name="wool_quality_notes" type="text" placeholder="Breed, colour, fibre length, coarseness, local origin, if known" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="material_combination">Material combination</label>
+            <select id="material_combination" name="material_combination"><option value="">Select</option><option>Wool only</option><option>Wool + natural fibres</option><option>Wool + bio-based binder</option><option>Wool + recycled material</option><option>Wool + synthetic component</option><option>Not yet defined</option><option>Other</option></select>
+          </div>
+          <div class="field full">
+            <label class="field-label">Main wool property explored</label>
+            <div class="checks compact" data-name="wool_property_explored">
+              <label class="check-item"><input type="checkbox" value="Thermal insulation">Thermal insulation</label>
+              <label class="check-item"><input type="checkbox" value="Acoustic absorption">Acoustic absorption</label>
+              <label class="check-item"><input type="checkbox" value="Softness/comfort">Softness/comfort</label>
+              <label class="check-item"><input type="checkbox" value="Roughness/texture">Roughness/texture</label>
+              <label class="check-item"><input type="checkbox" value="Absorbency">Absorbency</label>
+              <label class="check-item"><input type="checkbox" value="Breathability">Breathability</label>
+              <label class="check-item"><input type="checkbox" value="Fire behaviour">Fire behaviour</label>
+              <label class="check-item"><input type="checkbox" value="Biodegradability">Biodegradability</label>
+              <label class="check-item"><input type="checkbox" value="Visual/aesthetic quality">Visual/aesthetic quality</label>
+              <label class="check-item"><input type="checkbox" value="Cultural/local identity">Cultural/local identity</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="field-label">Processing or making techniques used</label>
+            <div class="checks compact" data-name="techniques_used">
+              <label class="check-item"><input type="checkbox" value="Hand felting">Hand felting</label>
+              <label class="check-item"><input type="checkbox" value="Needle felting">Needle felting</label>
+              <label class="check-item"><input type="checkbox" value="Weaving">Weaving</label>
+              <label class="check-item"><input type="checkbox" value="Knitting">Knitting</label>
+              <label class="check-item"><input type="checkbox" value="Sewing">Sewing</label>
+              <label class="check-item"><input type="checkbox" value="Moulding">Moulding</label>
+              <label class="check-item"><input type="checkbox" value="Pressing">Pressing</label>
+              <label class="check-item"><input type="checkbox" value="Cutting">Cutting</label>
+              <label class="check-item"><input type="checkbox" value="Digital fabrication">Digital fabrication</label>
+              <label class="check-item"><input type="checkbox" value="3D modelling">3D modelling</label>
+              <label class="check-item"><input type="checkbox" value="Laser cutting">Laser cutting</label>
+              <label class="check-item"><input type="checkbox" value="Experimental treatment">Experimental treatment</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="tools_used">Tools or equipment used</label>
+            <textarea id="tools_used" name="tools_used" class="small" placeholder="Machines, workshop tools, digital tools, hand tools"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label">Material/process issue encountered</label>
+            <div class="checks" data-name="material_issues">
+              <label class="check-item"><input type="checkbox" value="Dirt/cleaning">Dirt/cleaning</label>
+              <label class="check-item"><input type="checkbox" value="Smell">Smell</label>
+              <label class="check-item"><input type="checkbox" value="Fibre length">Fibre length</label>
+              <label class="check-item"><input type="checkbox" value="Resistance">Resistance</label>
+              <label class="check-item"><input type="checkbox" value="Consistency">Consistency</label>
+              <label class="check-item"><input type="checkbox" value="Processing difficulty">Processing difficulty</label>
+              <label class="check-item"><input type="checkbox" value="Lack of equipment">Lack of equipment</label>
+              <label class="check-item"><input type="checkbox" value="Time limits">Time limits</label>
+              <label class="check-item"><input type="checkbox" value="No issue yet">No issue yet</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="field-label" for="process_notes">Brief process notes</label>
+            <textarea id="process_notes" name="process_notes" placeholder="Main steps followed during the marathon"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="section-number">4</div>
+          <div>
+            <h2>Intended use and context</h2>
+            <p>Describe the imagined use situation without turning it into a market assessment.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field full">
+            <label class="field-label">Intended user or beneficiary</label>
+            <div class="checks compact" data-name="intended_users">
+              <label class="check-item"><input type="checkbox" value="Farmer/breeder">Farmer/breeder</label>
+              <label class="check-item"><input type="checkbox" value="Wool processor">Wool processor</label>
+              <label class="check-item"><input type="checkbox" value="Craftsperson">Craftsperson</label>
+              <label class="check-item"><input type="checkbox" value="Designer/maker">Designer/maker</label>
+              <label class="check-item"><input type="checkbox" value="Local business">Local business</label>
+              <label class="check-item"><input type="checkbox" value="Consumer">Consumer</label>
+              <label class="check-item"><input type="checkbox" value="Public body">Public body</label>
+              <label class="check-item"><input type="checkbox" value="Cultural/educational organisation">Cultural/educational organisation</label>
+              <label class="check-item"><input type="checkbox" value="Community group">Community group</label>
+              <label class="check-item"><input type="checkbox" value="Student/learner">Student/learner</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="field-label">Intended use context</label>
+            <div class="checks compact" data-name="use_contexts">
+              <label class="check-item"><input type="checkbox" value="Home/interior">Home/interior</label>
+              <label class="check-item"><input type="checkbox" value="Farm/rural setting">Farm/rural setting</label>
+              <label class="check-item"><input type="checkbox" value="Workshop/micro-factory">Workshop/micro-factory</label>
+              <label class="check-item"><input type="checkbox" value="Public space">Public space</label>
+              <label class="check-item"><input type="checkbox" value="School/training setting">School/training setting</label>
+              <label class="check-item"><input type="checkbox" value="Exhibition/cultural setting">Exhibition/cultural setting</label>
+              <label class="check-item"><input type="checkbox" value="Industrial/productive setting">Industrial/productive setting</label>
+              <label class="check-item"><input type="checkbox" value="Outdoor/landscape setting">Outdoor/landscape setting</label>
+              <label class="check-item"><input type="checkbox" value="Retail/display setting">Retail/display setting</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="need_addressed">Need addressed</label>
+            <textarea id="need_addressed" name="need_addressed" placeholder="Practical, symbolic, environmental, educational or social need"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="why_wool">Why wool is relevant here</label>
+            <textarea id="why_wool" name="why_wool" placeholder="Explain why wool is not just decorative but meaningful for the idea"></textarea>
+          </div>
+          <div class="field full">
+            <label class="field-label" for="first_use_scenario">Possible first use scenario</label>
+            <textarea id="first_use_scenario" name="first_use_scenario" class="small" placeholder="Describe a simple situation in which the idea would be used"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div class="section-number">5</div>
+          <div>
+            <h2>Immediate continuation needs and facilitator notes</h2>
+            <p>Capture the direct next needs expressed by the team, without anticipating later validation.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="field third">
+            <label class="field-label required" for="produced_output">What was produced during the marathon?</label>
+            <select id="produced_output" name="produced_output" data-required="true">
+              <option value="">Select</option>
+              <option>No tangible output</option><option>Sketch only</option><option>Material sample</option><option>Visual mock-up</option><option>Rough prototype</option><option>Functional prototype</option><option>Process documentation</option>
+            </select>
+          </div>
+          <div class="field third">
+            <label class="field-label" for="physical_output_location">Where is the physical output now?</label>
+            <select id="physical_output_location" name="physical_output_location">
+              <option value="">Select</option>
+              <option>With the team</option><option>With the organiser</option><option>With a partner organisation</option><option>Not applicable</option><option>Unknown</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label class="field-label">What would be needed to continue?</label>
+            <div class="checks compact" data-name="continuation_needs">
+              <label class="check-item"><input type="checkbox" value="More material testing">More material testing</label>
+              <label class="check-item"><input type="checkbox" value="Better equipment">Better equipment</label>
+              <label class="check-item"><input type="checkbox" value="Technical advice">Technical advice</label>
+              <label class="check-item"><input type="checkbox" value="Design refinement">Design refinement</label>
+              <label class="check-item"><input type="checkbox" value="User feedback">User feedback</label>
+              <label class="check-item"><input type="checkbox" value="More time for prototyping">More time for prototyping</label>
+              <label class="check-item"><input type="checkbox" value="Collaboration with wool processor">Collaboration with wool processor</label>
+              <label class="check-item"><input type="checkbox" value="Collaboration with maker/fab lab">Collaboration with maker/fab lab</label>
+              <label class="check-item"><input type="checkbox" value="Collaboration with company">Collaboration with company</label>
+              <label class="check-item"><input type="checkbox" value="Documentation only">Documentation only</label>
+              <label class="check-item"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="main_open_question">Main open question</label>
+            <textarea id="main_open_question" name="main_open_question" class="small" placeholder="One unresolved question after the marathon"></textarea>
+          </div>
+          <div class="field">
+            <label class="field-label" for="suggested_next_step">Suggested next step by the team</label>
+            <select id="suggested_next_step" name="suggested_next_step">
+              <option value="">Select</option>
+              <option>Archive/document</option><option>Continue prototyping</option><option>Test material</option><option>Seek technical partner</option><option>Present to stakeholders</option><option>Discuss with WP2/WP3 partners</option><option>Other</option>
+            </select>
+            <span class="hint">Use the notes field below for details.</span>
+          </div>
+          <div class="field full">
+            <label class="field-label" for="facilitator_notes">Facilitator notes</label>
+            <textarea id="facilitator_notes" name="facilitator_notes" placeholder="Optional contextual notes"></textarea>
+          </div>
+          <div class="field full consent-box">
+            <label class="check-item" style="padding:0; margin:0;">
+              <input type="checkbox" id="consent_confirmation" name="consent_confirmation" data-required-checkbox="true" value="Yes" />
+              <span><strong>Consent confirmation *</strong><br>The contributors agree that the information entered in this form may be used for Woolshed project documentation, reporting and internal follow-up.</span>
+            </label>
+          </div>
+          <div class="field full">
+            <label class="field-label" for="credits">Credits to be used</label>
+            <input id="credits" name="credits" type="text" placeholder="Names or organisations to be credited" />
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" id="clearFormBtn">Clear form</button>
+        <button type="submit" class="btn-primary" id="submitBtn">Add idea to collection</button>
+      </div>
+    </form>
+
+    <section class="records-card" aria-label="Collected ideas">
+      <div class="records-head">
+        <div>
+          <h2>Collected ideas</h2>
+          <p>Review, edit, delete and export the records stored in this browser.</p>
+        </div>
+      </div>
+      <div id="recordsContainer"></div>
+    </section>
+  </div>
+
+  <div id="printArea"></div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'woolshedIdeaCaptureRecords_v1';
+    const fields = [
+      'idea_title','idea_tagline','authors_team','contact_person','contributor_types','initial_development_countries','linked_local_context','territorial_connection','challenge_addressed','challenge_other','idea_summary',
+      'main_category','secondary_category','field_of_use','current_form','short_description','design_approach',
+      'wool_form','wool_origin_known','wool_quality_notes','material_combination','wool_property_explored','techniques_used','tools_used','material_issues','process_notes',
+      'intended_users','use_contexts','need_addressed','why_wool','first_use_scenario',
+      'produced_output','physical_output_location','continuation_needs','main_open_question','suggested_next_step','facilitator_notes','consent_confirmation','credits'
+    ];
+
+    const labels = {
+      idea_title: 'Idea title', idea_tagline: 'Short idea tagline', authors_team: 'Idea authors / team', contact_person: 'Contact person', contributor_types: 'Type of contributors', initial_development_countries: 'Countries where the idea could initially be developed', linked_local_context: 'Linked to one specific local wool context?', territorial_connection: 'Territorial connection', challenge_addressed: 'Design Marathon challenge addressed', challenge_other: 'Challenge notes / other', idea_summary: 'One-sentence idea summary',
+      main_category: 'Main idea category', secondary_category: 'Secondary category', field_of_use: 'Main field of possible use', current_form: 'Current form of the idea', short_description: 'Short description', design_approach: 'Key design approach',
+      wool_form: 'Wool form used or imagined', wool_origin_known: 'Wool origin known?', wool_quality_notes: 'Wool type / quality notes', material_combination: 'Material combination', wool_property_explored: 'Main wool property explored', techniques_used: 'Processing or making techniques used', tools_used: 'Tools or equipment used', material_issues: 'Material/process issue encountered', process_notes: 'Brief process notes',
+      intended_users: 'Intended user or beneficiary', use_contexts: 'Intended use context', need_addressed: 'Need addressed', why_wool: 'Why wool is relevant here', first_use_scenario: 'Possible first use scenario',
+      produced_output: 'What was produced during the marathon?', physical_output_location: 'Where is the physical output now?', continuation_needs: 'What would be needed to continue?', main_open_question: 'Main open question', suggested_next_step: 'Suggested next step by the team', facilitator_notes: 'Facilitator notes', consent_confirmation: 'Consent confirmation', credits: 'Credits to be used'
+    };
+
+    let records = loadRecords();
+
+    const form = document.getElementById('ideaForm');
+    const editingIndex = document.getElementById('editingIndex');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorSummary = document.getElementById('errorSummary');
+
+    function loadRecords() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveRecords() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      renderRecords();
+    }
+
+    function getCheckValues(name) {
+      return Array.from(document.querySelectorAll(`[data-name="${name}"] input[type="checkbox"]:checked`)).map(cb => cb.value);
+    }
+
+    function setCheckValues(name, values) {
+      const arr = Array.isArray(values) ? values : (values ? String(values).split(';').map(v => v.trim()) : []);
+      document.querySelectorAll(`[data-name="${name}"] input[type="checkbox"]`).forEach(cb => { cb.checked = arr.includes(cb.value); });
+    }
+
+    function collectFormData() {
+      const data = {};
+      fields.forEach(key => {
+        const group = document.querySelector(`[data-name="${key}"]`);
+        const el = document.getElementById(key);
+        if (group) data[key] = getCheckValues(key);
+        else if (el && el.type === 'checkbox') data[key] = el.checked ? 'Yes' : '';
+        else if (el) data[key] = el.value.trim();
+        else data[key] = '';
+      });
+      data.created_at = data.created_at || new Date().toISOString();
+      data.updated_at = new Date().toISOString();
+      return data;
+    }
+
+    function validateForm() {
+      const missing = [];
+      document.querySelectorAll('[data-required="true"]').forEach(el => {
+        if (!el.value.trim()) missing.push(labels[el.name || el.id] || el.id);
+      });
+      document.querySelectorAll('[data-required-group="true"]').forEach(group => {
+        if (!group.querySelector('input:checked')) missing.push(labels[group.dataset.name] || group.dataset.name);
+      });
+      document.querySelectorAll('[data-required-checkbox="true"]').forEach(el => {
+        if (!el.checked) missing.push(labels[el.name || el.id] || el.id);
+      });
+      return missing;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = validateForm();
+      if (missing.length) {
+        errorSummary.style.display = 'block';
+        errorSummary.textContent = 'Please complete the mandatory fields: ' + missing.join(', ') + '.';
+        errorSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      errorSummary.style.display = 'none';
+      const data = collectFormData();
+      const idx = editingIndex.value;
+      if (idx !== '') {
+        records[Number(idx)] = { ...records[Number(idx)], ...data };
+        showToast('Idea updated.');
+      } else {
+        records.push(data);
+        showToast('Idea added to collection.');
+      }
+      saveRecords();
+      clearForm();
+    });
+
+    function clearForm() {
+      form.reset();
+      editingIndex.value = '';
+      submitBtn.textContent = 'Add idea to collection';
+      errorSummary.style.display = 'none';
+    }
+
+    document.getElementById('clearFormBtn').addEventListener('click', clearForm);
+
+    document.getElementById('clearAllBtn').addEventListener('click', () => {
+      if (!records.length) return showToast('There are no records to clear.');
+      if (confirm('Clear all collected ideas from this browser?')) {
+        records = [];
+        saveRecords();
+        showToast('Collection cleared.');
+      }
+    });
+
+    function renderRecords() {
+      document.getElementById('recordCount').textContent = records.length;
+      const container = document.getElementById('recordsContainer');
+      if (!records.length) {
+        container.innerHTML = '<div class="empty">No ideas added yet. Fill in the form and click “Add idea to collection”.</div>';
+        return;
+      }
+      const rows = records.map((r, i) => `
+        <tr>
+          <td><strong>${escapeHtml(r.idea_title || '')}</strong><br><span style="color:var(--muted)">${escapeHtml(r.idea_summary || '')}</span></td>
+          <td>${escapeHtml(joinVal(r.initial_development_countries))}</td>
+          <td>${escapeHtml(r.main_category || '')}</td>
+          <td>${escapeHtml(r.current_form || '')}</td>
+          <td>${escapeHtml(joinVal(r.wool_form))}</td>
+          <td>${escapeHtml(r.produced_output || '')}</td>
+          <td class="actions"><button class="btn-secondary btn-small" onclick="editRecord(${i})">Edit</button> <button class="btn-danger btn-small" onclick="deleteRecord(${i})">Delete</button></td>
+        </tr>`).join('');
+      container.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Idea</th><th>Countries</th><th>Category</th><th>Current form</th><th>Wool form</th><th>Produced output</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    }
+
+    window.editRecord = function(index) {
+      const r = records[index];
+      fields.forEach(key => {
+        const group = document.querySelector(`[data-name="${key}"]`);
+        const el = document.getElementById(key);
+        if (group) setCheckValues(key, r[key]);
+        else if (el && el.type === 'checkbox') el.checked = r[key] === 'Yes';
+        else if (el) el.value = r[key] || '';
+      });
+      editingIndex.value = index;
+      submitBtn.textContent = 'Update idea in collection';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('Editing selected idea.');
+    }
+
+    window.deleteRecord = function(index) {
+      if (confirm('Delete this idea from the collection?')) {
+        records.splice(index, 1);
+        saveRecords();
+        showToast('Idea deleted.');
+      }
+    }
+
+    function joinVal(value) { return Array.isArray(value) ? value.join('; ') : (value || ''); }
+    function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+
+    function csvEscape(value) {
+      const v = joinVal(value).replace(/\r?\n/g, ' ');
+      return '"' + v.replace(/"/g, '""') + '"';
+    }
+
+    document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+      if (!records.length) return showToast('No records to export.');
+      const columns = [...fields, 'created_at', 'updated_at'];
+      const header = columns.map(k => csvEscape(labels[k] || k)).join(',');
+      const body = records.map(r => columns.map(k => csvEscape(r[k] || '')).join(',')).join('\n');
+      const csv = '\uFEFF' + header + '\n' + body;
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'woolshed_design_marathon_ideas.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('CSV downloaded.');
+    });
+
+    document.getElementById('printPdfBtn').addEventListener('click', () => {
+      if (!records.length) return showToast('No records to print.');
+      buildPrintArea();
+      setTimeout(() => window.print(), 100);
+    });
+
+    function buildPrintArea() {
+      const logo = document.querySelector('.logo-wrap img').src;
+      const groups = [
+        ['Idea identification and territorial relevance', ['idea_title','idea_tagline','authors_team','contact_person','contributor_types','initial_development_countries','linked_local_context','territorial_connection','challenge_addressed','challenge_other','idea_summary']],
+        ['Nature of the idea', ['main_category','secondary_category','field_of_use','current_form','short_description','design_approach']],
+        ['Wool material and process explored', ['wool_form','wool_origin_known','wool_quality_notes','material_combination','wool_property_explored','techniques_used','tools_used','material_issues','process_notes']],
+        ['Intended use and context', ['intended_users','use_contexts','need_addressed','why_wool','first_use_scenario']],
+        ['Immediate continuation needs and facilitator notes', ['produced_output','physical_output_location','continuation_needs','main_open_question','suggested_next_step','facilitator_notes','consent_confirmation','credits']]
+      ];
+      const pages = records.map((r, idx) => {
+        const sections = groups.map(([title, keys]) => {
+          const fieldsHtml = keys.map(k => `<div class="print-field ${String(joinVal(r[k])).length > 90 ? 'full' : ''}"><div class="print-label">${escapeHtml(labels[k] || k)}</div><div class="print-value">${escapeHtml(joinVal(r[k]) || '—')}</div></div>`).join('');
+          return `<h3 style="color:#2FB3A7;margin:16px 0 6px;font-size:15px;">${escapeHtml(title)}</h3><div class="print-grid">${fieldsHtml}</div>`;
+        }).join('');
+        return `<div class="print-page"><div class="print-header"><img src="${logo}" alt="Logo"><div><h1>Woolshed Design Marathon Idea Capture Form</h1><p>Action 2.2 documentation report · Idea ${idx + 1} of ${records.length}</p></div></div><h2 class="print-title">${escapeHtml(r.idea_title || 'Untitled idea')}</h2>${sections}</div>`;
+      }).join('');
+      document.getElementById('printArea').innerHTML = pages;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    renderRecords();
+  </script>
+</body>
+</html>
